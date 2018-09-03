@@ -12,50 +12,43 @@ class MainActivity : Activity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-         var result: String = ""
-        btn_0.setOnClickListener {
+         var result = "" // String usada para passar o valor inserido para o text_calc ou text_info
 
+        //abaixo estão todas as declarações dos botões para inserir informação no editText com id text_calc
+        btn_0.setOnClickListener {
             result = result + "0"
             text_calc.setText(result)
         }
         btn_1.setOnClickListener {
-
             result = result + "1"
             text_calc.setText(result)
         }
         btn_2.setOnClickListener {
-
             result = result + "2"
             text_calc.setText(result)
 
         }
         btn_Add.setOnClickListener {
-
             result = result + "+"
             text_calc.setText(result)
         }
         btn_3.setOnClickListener {
-
             result = result + "3"
             text_calc.setText(result)
         }
         btn_4.setOnClickListener {
-
             result = result + "4"
             text_calc.setText(result)
         }
         btn_5.setOnClickListener {
-
             result = result + "5"
             text_calc.setText(result)
         }
         btn_6.setOnClickListener {
-
             result = result + "6"
             text_calc.setText(result)
         }
         btn_7.setOnClickListener {
-
             result = result + "7"
             text_calc.setText(result)
         }
@@ -203,6 +196,7 @@ class MainActivity : Activity() {
                 }
             }.parse()
         }
+        //tenta avaliar a expressão, caso ocorra RuntimeException um toast é desparado com a mensagem "Expressão Inválida"
         btn_Equal.setOnClickListener {
 
             try {
@@ -214,5 +208,21 @@ class MainActivity : Activity() {
             }
 
         }
+    }
+    //salva os valores de text_info e text_calc em outState com id´s textInfo e textCalc respectivamente para caso aconteça alguma
+    // mudança de configuração
+    override fun onSaveInstanceState(outState: Bundle?) {
+        super.onSaveInstanceState(outState)
+        outState?.putString("textInfo", text_info.text.toString())
+        outState?.putString("textCalc", text_calc.text.toString())
+    }
+    //recupera os valores salvos
+    override fun onRestoreInstanceState(inState:Bundle) {
+        super.onRestoreInstanceState(inState)
+
+        val textoinfo = inState.getString("textInfo")
+        val textocalc = inState.getString("textCalc")
+        text_calc.setText(textocalc)
+        text_info.text = textoinfo.toString()
     }
 }
